@@ -15,21 +15,21 @@ public class Server {
     // PROTOCOLO DE COMUNICACIÓN (línea a línea, codificado en UTF-8)
     //
     // Registro (la primera línea que envía cada cliente es su nombre):
-    //   Cliente  -> nombre de usuario
-    //   Servidor -> "OK" | "ERROR:nombre_invalido" | "ERROR:usuario_ocupado"
-    //   El cliente puede cancelar el registro enviando "/salir".
+    // Cliente -> nombre de usuario
+    // Servidor -> "OK" | "ERROR:nombre_invalido" | "ERROR:usuario_ocupado"
+    // El cliente puede cancelar el registro enviando "/salir".
     //
     // Mensajes que envía el servidor:
-    //   "MENSAJE:<usuario>:<texto>"  -> mensaje difundido a todos
-    //   "PRIVADO:<usuario>:<texto>"  -> mensaje privado entregado al destinatario
-    //   "PRIVADO_ENVIADO:<usuario>:<texto>" -> copia al remitente de su privado
-    //   "USUARIOS:<u1>,<u2>,..."    -> lista de usuarios conectados
-    //   "INFO:<texto>"               -> aviso del sistema
+    // "MENSAJE:<usuario>:<texto>" -> mensaje difundido a todos
+    // "PRIVADO:<usuario>:<texto>" -> mensaje privado entregado al destinatario
+    // "PRIVADO_ENVIADO:<usuario>:<texto>" -> copia al remitente de su privado
+    // "USUARIOS:<u1>,<u2>,..." -> lista de usuarios conectados
+    // "INFO:<texto>" -> aviso del sistema
     //
     // Comandos que entiende el servidor:
-    //   "/usuarios" -> enviar la lista de usuarios solo al remitente
-    //   "PRIVADO:<usuario>:<texto>" -> entregar el mensaje solo a ese usuario
-    //   "/salir"    -> desconectar al cliente del chat
+    // "/usuarios" -> enviar la lista de usuarios solo al remitente
+    // "PRIVADO:<usuario>:<texto>" -> entregar el mensaje solo a ese usuario
+    // "/salir" -> desconectar al cliente del chat
     //
     // Cualquier otra línea se difunde como mensaje de chat.
     // ==================================================================
