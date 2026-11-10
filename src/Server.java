@@ -30,6 +30,7 @@ public class Server {
     // "/usuarios" -> enviar la lista de usuarios solo al remitente
     // "PRIVADO:<usuario>:<texto>" -> entregar el mensaje solo a ese usuario
     // "/salir" -> desconectar al cliente del chat
+    // "chao" (o "PRIVADO:<usuario>:chao") -> se entrega y el usuario abandona el chat
     //
     // Cualquier otra línea se difunde como mensaje de chat.
     // ==================================================================
@@ -259,6 +260,7 @@ public class Server {
                 String[] partes = message.split(":", 3);
                 if (partes.length == 3) {
                     Server.procesarMensajePrivado(partes[1], partes[2], this);
+                    marcarSiChao(partes[2]);
                 } else {
                     enviar("INFO:uso: PRIVADO:<usuario>:<mensaje>");
                 }
@@ -268,6 +270,16 @@ public class Server {
             } else {
                 // Mensaje normal: delegar en el servidor para difundirlo a todos
                 Server.procesarMensaje(message, this);
+                marcarSiChao(message);
+            }
+        }
+
+        // "chao" se entrega como un mensaje más y además marca que el usuario
+        // abandonó el chat: el bucle de escucha termina y se cierra la conexión
+        private void marcarSiChao(String texto) {
+            if (texto.trim().equalsIgnoreCase("chao")) {
+                System.out.println("[Servidor] El usuario '" + username + "' abandonó el chat");
+                conectado = false;
             }
         }
 

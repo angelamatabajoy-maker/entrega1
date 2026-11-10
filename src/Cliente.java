@@ -158,7 +158,9 @@ public class Cliente {
             String linea;
             // readLine() devuelve null cuando el servidor cierra la conexión
             while (conectado && (linea = input.readLine()) != null) {
-                mostrar(linea);
+                if (conectado) { // no mostrar nada después de haber salido
+                    mostrar(linea);
+                }
             }
         } catch (IOException e) {
             // silencioso si el cierre lo provocó este cliente; si lo provocó
@@ -289,7 +291,8 @@ public class Cliente {
     // Se ejecuta en el hilo principal: lee el teclado y envía cada línea
     private void enviarMensajes() {
         System.out.println("[Cliente] Escribe un mensaje y pulsa Enter para enviarlo.");
-        System.out.println("[Cliente] Comandos: /usuarios, /seleccionar, /todos, /salir");
+        System.out.println("[Cliente] Comandos: /usuarios, /seleccionar, /todos, /salir"
+                + " (o escribe chao para despedirte y salir)");
         try {
             String linea;
             while (conectado && (linea = teclado.readLine()) != null) {
@@ -322,6 +325,14 @@ public class Cliente {
                     output.println("PRIVADO:" + destinatario + ":" + linea);
                 } else {
                     output.println(linea);
+                }
+                // "chao" se despide del interlocutor y abandona el chat
+                // (el servidor marca al usuario como que abandonó)
+                if (linea.equalsIgnoreCase("chao")) {
+                    System.out.println("[tú" + (destinatario != null ? " -> " + destinatario : "")
+                            + "] " + linea + "  (abandonas el chat)");
+                    conectado = false;
+                    break;
                 }
             }
         } catch (IOException e) {
