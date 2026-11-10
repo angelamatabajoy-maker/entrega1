@@ -373,7 +373,7 @@ public class Cliente {
             try {
                 puerto = Integer.parseInt(args[1]); // El segundo argumento es el puerto
             } catch (NumberFormatException e) {
-                System.err.println("[Cliente] Puerto inválido: " + args[1] + ". Usando puerto por defecto: 8000");
+                System.err.println("[Cliente] Puerto inválido: " + args[1] + ". Usando puerto por defecto: 9000");
             }
         }
 
