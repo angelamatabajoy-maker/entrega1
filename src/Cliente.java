@@ -105,9 +105,8 @@ public class Cliente {
                 }
                 // Validación local para no gastar una consulta al servidor;
                 // el servidor repite la validación por seguridad
-                if (nombre.isEmpty() || nombre.contains(":") || nombre.contains(",")) {
-                    System.out.println("[Cliente] Nombre no válido: no puede estar vacío"
-                            + " ni contener ':' ni ','.");
+                if (nombre.isEmpty()) {
+                    System.out.println("[Cliente] Nombre no válido: no puede estar vacío");
                     continue;
                 }
 
@@ -364,7 +363,7 @@ public class Cliente {
     public static void main(String[] args) {
         // Valores por defecto
         String host = "127.0.0.1";
-        int puerto = 8000;
+        int puerto = 9000;
 
         // Si el usuario pasa argumentos: java Cliente <host> <puerto>
         if (args.length > 0) {
